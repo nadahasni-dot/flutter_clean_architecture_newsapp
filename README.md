@@ -1,8 +1,24 @@
 # flutter_clean_architecture_newsapp
 
-A new Flutter project.
+Simple NEWS APP, build using Clean Architecture by Uncle Bob ♥.
 
-## Getting Started
+## Features
+
+* Clean architecture
+* Local persisted news using Floor, database (Sqlite) abstraction Room alike on native Android
+* BLoC state management
+* Retrofit alike api network http request (Dio)
+
+Soon:
+* TODO: search news by query param
+
+## How To Run This Project
+
+* Copy `.env.example ` into `.env` and fulfill the requirements
+* Run `flutter pub get` to download all the dependencies
+* Run `flutter pub run` to run on emulator or any supported devices
+  
+## Getting Started Flutter
 
 This project is a starting point for a Flutter application.
 
