@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture_newsapp/configs/routes/route.dart';
+import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/usecases/get_bookmarked_news_usecase.dart';
+import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/usecases/get_daily_news_usecase.dart';
+import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/usecases/remove_article_usecase.dart';
+import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/usecases/save_article_usecase.dart';
+import 'package:flutter_clean_architecture_newsapp/features/daily_news/presentation/bloc/local/local_article_bloc.dart';
 import 'package:flutter_clean_architecture_newsapp/features/daily_news/presentation/bloc/remote/remote_article_bloc.dart';
 import 'package:flutter_clean_architecture_newsapp/injection_container.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -26,7 +31,15 @@ class NewsApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<RemoteArticleBloc>(
-          create: (context) => sl()..add(const GetArticles()),
+          create: (context) => RemoteArticleBloc(sl<GetDailyNewsUseCase>())
+            ..add(const GetArticles()),
+        ),
+        BlocProvider<LocalArticleBloc>(
+          create: (context) => LocalArticleBloc(
+            sl<GetBookmarkedNewsUseCase>(),
+            sl<RemoveArticleUseCase>(),
+            sl<SaveArticleUseCase>(),
+          ),
         ),
       ],
       child: MaterialApp.router(

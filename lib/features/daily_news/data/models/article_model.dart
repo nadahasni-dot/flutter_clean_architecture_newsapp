@@ -1,5 +1,7 @@
+import 'package:floor/floor.dart';
 import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/entities/article_entity.dart';
 
+@Entity(tableName: 'bookmarked_article', primaryKeys: ['title'])
 class ArticleModel extends ArticleEntity {
   const ArticleModel({
     String? url,
@@ -8,7 +10,7 @@ class ArticleModel extends ArticleEntity {
     String? content,
     String? urlToImage,
     String? description,
-    DateTime? publishedAt,
+    String? publishedAt,
   }) : super(
           url: url,
           title: title,
@@ -26,8 +28,16 @@ class ArticleModel extends ArticleEntity {
         content: json['content'],
         urlToImage: json['urlToImage'],
         description: json['description'],
-        publishedAt: json['publishedAt'] != null
-            ? DateTime.parse(json['publishedAt'])
-            : json['publishedAt'],
+        publishedAt: json['publishedAt'],
+      );
+
+  factory ArticleModel.fromEntity(ArticleEntity entity) => ArticleModel(
+        url: entity.url,
+        title: entity.title,
+        author: entity.author,
+        content: entity.content,
+        urlToImage: entity.urlToImage,
+        description: entity.description,
+        publishedAt: entity.publishedAt,
       );
 }

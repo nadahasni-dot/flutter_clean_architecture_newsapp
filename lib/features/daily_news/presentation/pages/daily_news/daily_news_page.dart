@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/entities/article_entity.dart';
 import 'package:flutter_clean_architecture_newsapp/features/daily_news/presentation/bloc/remote/remote_article_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_architecture_newsapp/features/daily_news/presentation/pages/bookmark/news_bookmark_page.dart';
 import 'package:flutter_clean_architecture_newsapp/features/daily_news/presentation/widgets/article_card.dart';
+import 'package:go_router/go_router.dart';
 
 class DailyNewsPage extends StatefulWidget {
   static const routeName = '/';
@@ -23,11 +25,10 @@ class _DailyNewsPageState extends State<DailyNewsPage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: const Text('Daily News'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => context.pushNamed(NewsBookmarkPage.routeName),
             icon: const Icon(Icons.bookmark),
           ),
           IconButton(
