@@ -44,6 +44,12 @@ class _NewsBookmarkPageState extends State<NewsBookmarkPage> {
               return const Center(child: CircularProgressIndicator());
             }
 
+            if (state.articles?.isEmpty == true) {
+              return const Center(
+                child: Text('No Saved News'),
+              );
+            }
+
             return ListView.separated(
               itemCount: state.articles!.length,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
