@@ -43,6 +43,7 @@ class NewsApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'NEWS APP',
         theme: ThemeData(
           useMaterial3: true,
