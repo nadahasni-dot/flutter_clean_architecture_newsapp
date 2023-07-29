@@ -10,14 +10,25 @@ import 'package:go_router/go_router.dart';
 
 class ArticleCard extends StatelessWidget {
   final ArticleEntity article;
+  final bool isBookmarked;
 
-  const ArticleCard({super.key, required this.article});
+  const ArticleCard(
+      {super.key, required this.article, this.isBookmarked = false});
 
   void _saveArticle(BuildContext context) {
     context.read<LocalArticleBloc>().add(SaveArticle(article));
 
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Article Saved'),
+      behavior: SnackBarBehavior.floating,
+    ));
+  }
+
+  void _removeArticle(BuildContext context) {
+    context.read<LocalArticleBloc>().add(RemoveArticle(article));
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Removed From Bookmark'),
       behavior: SnackBarBehavior.floating,
     ));
   }
@@ -60,8 +71,17 @@ class ArticleCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      onPressed: () => _saveArticle(context),
-                      icon: const Icon(Icons.bookmark_add),
+                      onPressed: () {
+                        if (isBookmarked) {
+                          _removeArticle(context);
+                          return;
+                        }
+
+                        _saveArticle(context);
+                      },
+                      icon: isBookmarked
+                          ? const Icon(Icons.bookmark_remove)
+                          : const Icon(Icons.bookmark_add),
                       style:
                           IconButton.styleFrom(backgroundColor: Colors.white),
                     ),
