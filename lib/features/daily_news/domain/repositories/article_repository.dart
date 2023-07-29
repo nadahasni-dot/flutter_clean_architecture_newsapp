@@ -3,4 +3,10 @@ import 'package:flutter_clean_architecture_newsapp/features/daily_news/domain/en
 
 abstract class ArticleRepository {
   Future<DataState<List<ArticleEntity>>> getDailyNews();
+
+  Future<List<ArticleEntity>> getBookmarkedNews();
+
+  Future<void> saveArticle(ArticleEntity article);
+
+  Future<void> removeArticle(ArticleEntity article);
 }
